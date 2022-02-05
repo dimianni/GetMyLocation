@@ -40,6 +40,9 @@ body {
 .title{
   margin-bottom: 15px;
 }
+h3{
+  padding: 0 10px;
+}
 
 .country {
   background-color: #fff;

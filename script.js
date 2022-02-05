@@ -15,7 +15,12 @@ class App {
             // getCurrentPosition нужно куда-то положить результат, поэтому нужен callback который смог бы его принять
             // можно использовать callback Промиса resolve, и достать результат из .then
             // P.S. значение из resolve всегда идет в .then, а значение из reject в .catch
-            navigator.geolocation.getCurrentPosition(resolve, reject)
+            navigator.geolocation.getCurrentPosition(resolve, err => {
+
+                const html = `<h3>Please allow location sharing in your browser 🥺</h3>`
+                countriesContainer.insertAdjacentHTML("beforeend", html)
+                reject(err)
+            })
         })
     }
 
@@ -50,7 +55,10 @@ class App {
                 this.renderCountry(data[0])
             })
             .catch(err => console.error(`Damn...${err}`))
-            .finally(() => btn.style.display = "none")
+            .finally(() => {
+                btn.style.display = "none"
+                countriesContainer.style.opacity = 1;
+            })
     }
 
     renderCountry(data, className = '') {
